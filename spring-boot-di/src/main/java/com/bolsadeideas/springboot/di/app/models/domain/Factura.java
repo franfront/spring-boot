@@ -1,6 +1,9 @@
 package com.bolsadeideas.springboot.di.app.models.domain;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +18,19 @@ public class Factura {
     @Autowired
     private Cliente cliente;
 
+    @Autowired
     private List<ItemFactura> items;
 
+    @PostConstruct
+    public void init(){
+        cliente.setNombre("Eugenia");
+        descripcion = descripcion.concat(" del cliente: ").concat(cliente.getNombre());
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("Factura destruida: ".concat(descripcion));
+    }
 
     public String getDescripcion() {
         return descripcion;
