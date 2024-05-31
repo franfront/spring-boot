@@ -3,14 +3,23 @@ package com.bolsadeideas.springboot.di.app.models.domain;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
+
+import java.io.Serializable;
 import java.util.List;
 
 @Component
-public class Factura {
+@RequestScope
+public class Factura implements Serializable {
+
+
+    private static final long serialVersionUID = 1L;
 
     @Value("${factura.descripcion}")
     private String descripcion;
